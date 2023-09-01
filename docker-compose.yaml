@@ -4,7 +4,7 @@ volumes:
   mongo_vol:
 
 networks:
-  web-rotten-potatoes:
+  python-flask-web:
     driver: bridge
 
 services:
@@ -13,7 +13,7 @@ services:
     ports:
       - 27017:27017
     networks: 
-     - web-rotten-potatoes
+     - python-flask-web
     volumes:
       - mongo_vol:/data/db
     environment: 
@@ -28,7 +28,7 @@ services:
     ports: 
      - 5000:5000
     networks: 
-     - web-rotten-potatoes
+     - python-flask-web
     environment: 
       MONGODB_DB: admin
       MONGODB_HOST: mongodb
@@ -37,3 +37,19 @@ services:
       MONGODB_PASSWORD: mongopwd
     depends_on:
       - mongodb
+
+  mongo-exp: 
+    depends_on: 
+     - mongodb
+    restart: unless-stopped
+    image: mongo-express
+    ports: 
+     - 8081:8081
+    networks: 
+     - python-flask-web
+    environment: 
+      ME_CONFIG_MONGODB_ADMINUSERNAME: mongouser
+      ME_CONFIG_MONGODB_ADMINPASSWORD: mongopwd
+      ME_CONFIG_MONGODB_URL: mongodb://mongouser:mongopwd@mongodb:27017/?authSource=admin
+      ME_CONFIG_BASICAUTH_USERNAME: mexpress
+      ME_CONFIG_BASICAUTH_PASSWORD: mexpress
