@@ -1,4 +1,4 @@
-# Projeto rotten-potatoes
+# Projeto rotten-potatoes (fork)
 
 ### Objetivo
 O projeto rotten-potatoes é uma aplicação escrita em Python e tem como objetivo ser uma aplicação de exemplo pra trabalhar com o uso de containers.
