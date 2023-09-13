@@ -1,0 +1,46 @@
+docker run --name mongodb --rm \
+    -p 27017:27017 \
+    --network web-flask \
+    -e MONGO_INITDB_ROOT_USERNAME=mongouser \
+    -e MONGO_INITDB_ROOT_PASSWORD=mongopwd \
+    -v mongo_vol:/data/db \
+    mongo
+
+
+
+
+
+docker run --name app-python --rm \
+    --network web-flask \
+    -e MONGODB_DB=admin \
+    -e MONGODB_HOST=mongodb \
+    -e MONGODB_PORT=27017 \
+    -e MONGODB_USERNAME=mongouser \
+    -e MONGODB_PASSWORD=mongopwd \
+    -p 5000:5000 \
+    rotten-potatoes-reviewer:v2
+
+    rotten-potatoes-server
+
+OBS: Necessário atualizar a lib Pillow, para efetuar o build.
+
+
+
+docker build -t rotten-potatoes-app . 
+
+ $ docker stop $(docker ps -aq)
+
+
+Como acessar as variávies de ambiente que são enviados para criar um container python?
+
+
+
+docker run --name mongo-exp \
+    --network rotten-potatoes_web-rotten-potatoes \
+    -p 8081:8081 \
+    -e ME_CONFIG_MONGODB_ADMINUSERNAME=mongouser \
+    -e ME_CONFIG_MONGODB_ADMINPASSWORD=mongopwd \
+    -e ME_CONFIG_MONGODB_URL=mongodb://mongouser:mongopwd@mongodb:27017/?authSource=admin \
+    -e ME_CONFIG_BASICAUTH_USERNAME=mexpress \
+    -e ME_CONFIG_BASICAUTH_PASSWORD=mexpress \
+    mongo-express
