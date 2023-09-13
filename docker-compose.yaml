@@ -20,8 +20,8 @@ services:
       MONGO_INITDB_ROOT_USERNAME: mongouser
       MONGO_INITDB_ROOT_PASSWORD: mongopwd
   
-  python-flask: 
-    image: rotten-potatoes-flask:${TAG}
+  web-service: 
+    image: joaoinvernal/rotten-potatoes-reviewer:${TAG}
     build: 
       context: ./src
       dockerfile: ./Dockerfile
